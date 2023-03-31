@@ -29,7 +29,7 @@ _**blocks.csv:**_  This file contains information about Ethereum blocks, includi
 - The block data is reduced by the miner address to calculate the total block size mined by each miner.
 - The top 10 miners are identified using `takeOrdered` method with a lambda function to sort the miners by the total block size mined.
 - The results are then written to S3 bucket as a TXT file using the boto3 library, and the Spark session is stopped.
-- 
+
 #### Output:
 
 The following are the top 10 by block size.

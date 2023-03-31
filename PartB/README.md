@@ -14,6 +14,19 @@ The data used in this analysis was fetched from two CSV files stored in an S3 bu
 
 ***contracts.csv:*** The contracts file contains information about Ethereum smart contracts.
 
+### Execution:
+
+1. Execute the spark application.
+
+    ```sh
+    ccc create spark top-smart-contracts.py -s
+    ```
+2. Stream the logs of the drive container.
+
+    ```sh
+    oc logs -f spark top-smart-contracts-spark-app-driver
+    ```
+
 ### Methodology:
 
 - The Spark script begins by initializing a Spark session.

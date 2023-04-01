@@ -12,7 +12,21 @@ The data used in this analysis was fetched from a CSV file stored in an S3 bucke
 
 _**transactions.csv:**_  The transactions file contains information about Ethereum transactions.
 
-#### 1.1.3 Execution:
+#### 1.1.3 Source Code:
+```sh
+PartA
+├── README.md
+├── output
+│   ├── transactions_avg.png 
+│   ├── transactions_avg.txt
+│   ├── transactions_total.png
+│   └── transactions_total.txt
+├── transactions-average.py
+├── transactions-total.py # source code
+├── transactions_average.ipynb
+└── transactions_total.ipynb # source code for plots
+```
+#### 1.1.4 Execution:
 
 1. Execute the spark application.
 
@@ -25,7 +39,7 @@ _**transactions.csv:**_  The transactions file contains information about Ethere
     oc logs -f spark transactions-total-spark-app-driver
     ```
   
-#### 1.1.4 Methodology:
+#### 1.1.5 Methodology:
 
 - The Spark script begins by initializing a Spark session.
 
@@ -40,7 +54,7 @@ _**transactions.csv:**_  The transactions file contains information about Ethere
 - The ``takeOrdered()`` method is used to get the top 10 smart contracts based on their total transaction value.
 - The results are then written to S3 bucket as a TXT file using the boto3 library, and the Spark session is stopped.
 
-#### 1.1.5 Output:
+#### 1.1.6 Output:
 The bar plot showing the total number of transactions occurring each month between the start and end of the dataset is obtained. The code used to obtain this graph can be found in [`PartA/transactions_total.ipynb`](https://github.com/sasidharan01/ECS765P-analysis-of-ethereum-transactions-and-smart-contracts/blob/master/PartA/transactions_total.ipynb)
 
 ![alt txt](https://github.com/sasidharan01/ECS765P-analysis-of-ethereum-transactions-and-smart-contracts/blob/master/PartA/output/transactions_total.png)
@@ -54,8 +68,21 @@ To create a bar plot showing the average value of transaction in each month betw
 The data used in this analysis was fetched from a CSV file stored in an S3 bucket:
 
 _**transactions.csv:**_  The transactions file contains information about Ethereum transactions.
-
-#### 1.2.3 Execution:
+#### 1.2.3 Source Code:
+```sh
+PartA
+├── README.md
+├── output
+│   ├── transactions_avg.png 
+│   ├── transactions_avg.txt
+│   ├── transactions_total.png
+│   └── transactions_total.txt
+├── transactions-average.py # source code
+├── transactions-total.py
+├── transactions_average.ipynb # source code for plots
+└── transactions_total.ipynb
+```
+#### 1.2.4 Execution:
 
 1. Execute the spark application.
 
@@ -68,7 +95,7 @@ _**transactions.csv:**_  The transactions file contains information about Ethere
     oc logs -f spark transactions-average-spark-app-driver
     ```
 
-#### 1.2.4 Methodology:
+#### 1.2.5 Methodology:
 
 1.  ***Initializing a Spark session:*** The first step of the code is to initialize a Spark session using the `SparkSession` object. The `appName` argument is set to "Ethereum" to identify the Spark application, and `getOrCreate()` method is called to create a new Spark session or retrieve an existing one.
     
@@ -88,7 +115,7 @@ _**transactions.csv:**_  The transactions file contains information about Ethere
     
 10.  ***Storing the results in an S3 bucket:*** The results are stored in an S3 bucket using the `Object()` and `put()` methods of the `boto3.resource()` object. The results are stored as a text file.
 
-#### 1.2.5 Output:
+#### 1.2.6 Output:
 The bar plot showing the average value of transaction in each month between the start and end of the dataset is obtained. The code used to obtain this graph can be found in [`PartA/transactions_avg.ipynb`](https://github.com/sasidharan01/ECS765P-analysis-of-ethereum-transactions-and-smart-contracts/blob/master/PartA/transactions_avg.ipynb)
 
 ![alt txt](https://github.com/sasidharan01/ECS765P-analysis-of-ethereum-transactions-and-smart-contracts/blob/master/PartA/output/transactions_avg.png)

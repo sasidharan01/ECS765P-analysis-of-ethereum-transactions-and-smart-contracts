@@ -70,7 +70,7 @@ if __name__ == "__main__":
     now = datetime.now()  # current date and time
     date_time = now.strftime("%d-%m-%Y_%H:%M:%S")
 
-    obj = bucket.Object(s3_bucket, "ethereum_" + date_time + "/transactions_total.txt")
+    obj = bucket.Object(s3_bucket, "ethereum_total_" + date_time + "/transactions_total.txt")
     obj.put(Body=json.dumps(total_transactions.take(100)))
 
     spark.stop()

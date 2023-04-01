@@ -1,4 +1,5 @@
 
+
 ## Part A. Time Analysis (25%)
 
 ### 1.1 Total Transactions
@@ -40,9 +41,9 @@ _**transactions.csv:**_  The transactions file contains information about Ethere
 - The results are then written to S3 bucket as a TXT file using the boto3 library, and the Spark session is stopped.
 
 #### 1.1.5 Output:
-The bar plot showing the total number of transactions occurring each month between the start and end of the dataset is obtained. The code used to obtain this graph can be found in `PartA/transactions_total.ipynb`
+The bar plot showing the total number of transactions occurring each month between the start and end of the dataset is obtained. The code used to obtain this graph can be found in [`PartA/transactions_total.ipynb`](https://github.com/sasidharan01/ECS765P-analysis-of-ethereum-transactions-and-smart-contracts/blob/master/PartA/transactions_total.ipynb)
 
-![alt txt](output/transactions_total.png)
+![alt txt](https://github.com/sasidharan01/ECS765P-analysis-of-ethereum-transactions-and-smart-contracts/blob/master/PartA/output/transactions_total.png)
 
 ### 1.2 Average Transactions
 
@@ -88,6 +89,6 @@ _**transactions.csv:**_  The transactions file contains information about Ethere
 10.  ***Storing the results in an S3 bucket:*** The results are stored in an S3 bucket using the `Object()` and `put()` methods of the `boto3.resource()` object. The results are stored as a text file.
 
 #### 1.2.5 Output:
-The bar plot showing the average value of transaction in each month between the start and end of the dataset is obtained. The code used to obtain this graph can be found in `PartA/transactions_avg.ipynb`
+The bar plot showing the average value of transaction in each month between the start and end of the dataset is obtained. The code used to obtain this graph can be found in [`PartA/transactions_avg.ipynb`](https://github.com/sasidharan01/ECS765P-analysis-of-ethereum-transactions-and-smart-contracts/blob/master/PartA/transactions_avg.ipynb)
 
-![alt txt](output/transactions_avg.png)
+![alt txt](https://github.com/sasidharan01/ECS765P-analysis-of-ethereum-transactions-and-smart-contracts/blob/master/PartA/output/transactions_avg.png)

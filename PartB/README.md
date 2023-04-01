@@ -2,11 +2,11 @@
 
 ## Part B. Top Ten Most Popular Services (25%)
 
-### Objectives:
+#### Objectives:
 
 To evaluate the top 10 smart contracts by total Ether received. This includes joining the **address** field in the contracts dataset to the **to_address** in the transactions dataset to determine how much ether a contract has received.
 
-### Data Source:
+#### Data Source:
 
 The data used in this analysis was fetched from two CSV files stored in an S3 bucket: 
 
@@ -14,7 +14,19 @@ The data used in this analysis was fetched from two CSV files stored in an S3 bu
 
 ***contracts.csv:*** The contracts file contains information about Ethereum smart contracts.
 
-### Execution:
+#### Source Code:
+
+```sh
+PartB
+├── README.md
+├── output
+│   ├── top10_smart_contracts.md
+│   └── top_smart_contracts.txt
+├── top-smart-contracts.py # source code
+└── top_smart_contracts.ipynb # source code for generating table
+```
+
+#### Execution:
 
 1. Execute the spark application.
 
@@ -27,7 +39,7 @@ The data used in this analysis was fetched from two CSV files stored in an S3 bu
     oc logs -f spark top-smart-contracts-spark-app-driver
     ```
 
-### Methodology:
+#### Methodology:
 
 - The Spark script begins by initializing a Spark session.
 
@@ -42,7 +54,7 @@ The data used in this analysis was fetched from two CSV files stored in an S3 bu
 - The ``takeOrdered()`` method is used to get the top 10 smart contracts based on their total transaction value.
 - The results are then written to S3 bucket as a TXT file using the boto3 library, and the Spark session is stopped.
 
-### Output:
+#### Output:
 
 The following are the top 10 smart contracts by total Ether received.
 

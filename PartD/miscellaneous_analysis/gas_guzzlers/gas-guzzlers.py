@@ -90,7 +90,7 @@ if __name__ == "__main__":
     transactions_gas_price = transactions_filtered.map(map_gas_price)
     transactions_gas_price_reduced = transactions_gas_price.reduceByKey(lambda x, y: (x[0] + y[0], x[1] + y[1]))
     average_gas_price = transactions_gas_price_reduced.sortByKey(ascending=True)
-    average_gas_price = average_gas_price.map(lambda a: (a[0], str(a[1][0] / a[1][1])))
+    average_gas_price = average_gas_price.map(lambda x: (x[0], str(x[1][0] / x[1][1])))
 
     # Map transactions and contracts data to calculate average gas used per smart contract per month
     def map_gas_used(line):
@@ -124,7 +124,7 @@ if __name__ == "__main__":
     transactions_contracts_joined = transactions_gas_used.join(contracts_filtered)
     transactions_contracts_mapped = transactions_contracts_joined.map(lambda x: (x[1][0][0], (x[1][0][1], x[1][1])))
     transactions_reduced = transactions_contracts_mapped.reduceByKey(lambda x, y: (x[0] + y[0], x[1] + y[1]))
-    average_gas_used = transactions_reduced.map(lambda a: (a[0], str(a[1][0] / a[1][1])))
+    average_gas_used = transactions_reduced.map(lambda x: (x[0], str(x[1][0] / x[1][1])))
     average_gas_used = average_gas_used.sortByKey(ascending=True)
 
     # Create resource objects for S3 bucket

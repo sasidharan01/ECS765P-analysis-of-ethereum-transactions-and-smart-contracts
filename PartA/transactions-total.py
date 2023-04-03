@@ -52,7 +52,7 @@ if __name__ == "__main__":
     and map it to 1 for each transaction
     """
     transactions_mapped = transactions_filtered.map(
-        lambda b: (time.strftime("%m/%Y", time.gmtime(int(b.split(",")[11]))), 1)
+        lambda x: (time.strftime("%m/%Y", time.gmtime(int(x.split(",")[11]))), 1)
     )
 
     # Reduce by key (month and year) to get the total number of transactions per month

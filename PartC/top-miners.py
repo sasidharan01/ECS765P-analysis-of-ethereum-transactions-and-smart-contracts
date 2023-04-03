@@ -57,10 +57,10 @@ if __name__ == "__main__":
     blocks_transformed = blocks_filtered.map(get_block_features)
 
     # Reduce blocks data by miner address
-    blocks_reduced = blocks_transformed.reduceByKey(lambda a, b: a + b)
+    blocks_reduced = blocks_transformed.reduceByKey(lambda x, y: x + y)
 
     # Top 10 miners
-    top_miners = blocks_reduced.takeOrdered(10, key=lambda l: -l[1])
+    top_miners = blocks_reduced.takeOrdered(10, key=lambda x: -x[1])
 
     # Create resource object for S3 bucket
     bucket = boto3.resource(

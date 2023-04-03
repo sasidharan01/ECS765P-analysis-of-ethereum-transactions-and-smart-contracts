@@ -42,8 +42,8 @@ if __name__ == "__main__":
             ","
         )
         date = time.strftime("%m/%Y", time.gmtime(int(block_timestamp)))
-        vals = float(value)
-        return (date, (vals, 1))
+        v = float(value)
+        return (date, (v, 1))
 
     # Fetch transactions.csv file from S3 bucket
     transactions = spark.sparkContext.textFile(
@@ -64,9 +64,9 @@ if __name__ == "__main__":
     )
     
     transactions_avg = transactions_reduced.map(
-        lambda a: (a[0], str(a[1][0] / a[1][1]))
+        lambda x: (x[0], str(x[1][0] / x[1][1]))
     )
-    transactions_avg = transactions_avg.map(lambda op: ",".join(str(tr) for tr in op))
+    transactions_avg = transactions_avg.map(lambda x: ",".join(str(transaction) for transaction in x))
 
     # Create resource object for S3 bucket
     bucket = boto3.resource(

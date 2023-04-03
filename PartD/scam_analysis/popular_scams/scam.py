@@ -69,12 +69,12 @@ if __name__ == "__main__":
 
     # Transform scams dataset into key-value pairs
     scams_transformed = scams_filtered.map(
-        lambda l: (l.split(",")[6], (l.split(",")[0], l.split(",")[4]))
+        lambda x: (x.split(",")[6], (x.split(",")[0], x.split(",")[4]))
     )
 
     # Transform transactions dataset into key-value pairs
     transactions_transformed = transactions_filetered.map(
-        lambda l: (l.split(",")[6], float(l.split(",")[7]))
+        lambda x: (x.split(",")[6], float(x.split(",")[7]))
     )
 
     # Join transactions and scams datasets and perform necessary transformations
@@ -86,18 +86,18 @@ if __name__ == "__main__":
     )
 
     # Calculate the total value of transactions for each scam type and address
-    popular_scams = transactions_scams_transformed.reduceByKey(lambda a, b: a + b)
+    popular_scams = transactions_scams_transformed.reduceByKey(lambda x, y: x + y)
 
     """
     Transform popular_scams dataset to map scam types and addresses 
     to total transaction values
     """
-    popular_scams = popular_scams.map(lambda a: ((a[0][0], a[0][1]), float(a[1])))
-    top_popular_scams = popular_scams.takeOrdered(15, key=lambda l: -1 * l[1])
+    popular_scams = popular_scams.map(lambda x: ((x[0][0], x[0][1]), float(x[1])))
+    top_popular_scams = popular_scams.takeOrdered(15, key=lambda x: -1 * x[1])
 
     # Create a mapping between each scam and the associated scam address
     scam_address_mapped = scams_filtered.map(
-        lambda l: (l.split(",")[6], l.split(",")[4])
+        lambda x: (x.split(",")[6], x.split(",")[4])
     )
 
     """
@@ -105,11 +105,11 @@ if __name__ == "__main__":
     month, as well as the transaction value
     """
     transaction_month_mapped = transactions_filetered.map(
-        lambda l: (
-            l.split(",")[6],
+        lambda x: (
+            x.split(",")[6],
             (
-                time.strftime("%m/%Y", time.gmtime(int(l.split(",")[11]))),
-                l.split(",")[7],
+                time.strftime("%m/%Y", time.gmtime(int(x.split(",")[11]))),
+                x.split(",")[7],
             ),
         )
     )
@@ -128,14 +128,14 @@ if __name__ == "__main__":
     month_scam_addr_mapped = tran_month_scam_addr_joined.map(
         lambda x: ((x[1][0][0], x[1][1]), x[1][0][1])
     )
-    ether_time_reduced = month_scam_addr_mapped.reduceByKey(lambda a, b: a + b)
+    ether_time_reduced = month_scam_addr_mapped.reduceByKey(lambda x, y: x + y)
 
     """
     Map the ethertime RDD to contain a tuple with a tuple containing the month 
     and scam address as the key, and the total transaction value as the value.
     """
     ethertime_time_transformed = ether_time_reduced.map(
-        lambda a: ((a[0][0], a[0][1]), float(a[1]))
+        lambda x: ((x[0][0], x[0][1]), float(x[1]))
     )
     # print(ethertime.take(10))
 

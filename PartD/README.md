@@ -63,6 +63,14 @@ The below are the list of popular scams
 |        86 | Phishing | 8.94456e+20 |     14 |
 |      2193 | Phishing | 8.8271e+20  |     15 |
 
+The below plot shows how ether received has changed over time.
+![alt](https://github.com/sasidharan01/ECS765P-analysis-of-ethereum-transactions-and-smart-contracts/blob/master/PartD/scam_analysis/popular_scams/output/ether_time.png)
+**Inference:**
+Overall, the value of phishing and scamming scams has been increasing over time, with phishing showing a steep increase in mid-2017 and again in mid-2018. 
+
+The value of fake ICO scams has been more volatile, with large fluctuations in value between mid-2017 and early 2018, followed by a decline and relatively stable values since then. 
+
+The plot suggests that phishing and scamming scams are more prevalent.
 
 ## 4.2 Miscellaneous Analysis
 

@@ -145,3 +145,51 @@ The below plot shows the Average gas price with respect to Month/Year (sorted fi
 The below plot shows the Average gas used with respect to Month/Year (sorted first on month and then year).
 
 ![alt](https://github.com/sasidharan01/ECS765P-analysis-of-ethereum-transactions-and-smart-contracts/blob/master/PartD/miscellaneous_analysis/gas_guzzlers/output/gas_used_avg.png)
+
+
+### 4.2.2 Data Overhead (20%)
+
+#### Objective:
+
+To analyze the amount of space that can be saved by removing unnecessary columns from the blocks table in a cryptocurrency database. The columns that can be considered for removal are logs_bloom, sha3_uncles, transactions_root, state_root, and receipts_root. Since these columns contain hex strings, it is assumed that each character after the first two requires four bits. The objective is to determine how much space can be saved by removing these columns.
+
+#### Data Source:
+The data used in this analysis was fetched from a CSV file stored in an S3 bucket:
+
+***blocks.csv:*** [number, hash, parent_hash, nonce, sha3_uncles, logs_bloom, transactions_root, state_root, receipts_root, miner, difficulty, total_difficulty, size, extra_data, gas_limit, gas_used, timestamp, transaction_count, base_fee_per_gas,]
+
+#### Source Code:
+```sh
+PartD/miscellaneous_analysis/data_overhead/
+├── data-overhead.py
+└── output
+    └── data_ovehead.txt
+```
+#### Execution Command:
+1. Execute the spark application.
+
+	```sh
+	ccc create spark data-overhead.py -d -s
+	```
+
+2. Stream the logs of the drive container.
+
+	```sh
+	oc logs -f data-overhead-spark-app-driver
+	```
+
+#### Methodology:
+
+1.  ***Initialize Spark session and S3 environment variables:*** Initialized a Spark session using the SparkSession object. Fetched environment variables related to the S3 bucket, such as the data repository bucket, endpoint URL, access key ID, secret access key, and bucket name. Configured Hadoop settings for the Spark session using the hadoopConf object.
+
+2.  ***Fetch blocks.csv file and verify block data*** The blocks.csv is fetched from the S3 bucket using the textFile() method of the Spark context. The methods `verify_blocks()` reads every line of transactions as input and return `True` if the data is in the correct format and `False` otherwise.
+
+3. ***Transform and reduce blocks dataset:*** 1.  The blocks dataset is mapped to extrac the five columns that need to be analysed and the `calculate_size` method is used to calculate the size of each column using the. The resultant data is reduced `reduceByKey` by summing the sized of all the columns.
+
+4. ***Create new RDD to calculate total size: *** The above reduced dataset is mapped to calculate the total size of all columns and stored in a new RDD.
+
+5. ***Store results in S3 bucket:*** The results are then written to S3 bucket as a TXT file `data-overhead.txt` using the boto3 library and the Spark session is stopped using `stop()` method.
+
+#### Output:
+
+The size of the unwanted columns (logs_bloom, sha3_uncles, transactions_root, state_root, and receipts_root) is calculated and found to be `21504003276`. Therefore, we would be above to save `21504003276` bytes of data when the above mentioned columns are removed.

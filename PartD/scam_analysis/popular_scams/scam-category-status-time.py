@@ -84,11 +84,6 @@ if __name__ == "__main__":
         lambda x: ((x[1][1][1], x[1][0][0]), x[1][0][1]))
     category_reduced = category_mapping.reduceByKey(operator.add)
 
-    scam_id_mapping = transactions_scams_transformed.map(
-        lambda x: (x[1][1][0], x[1][0][1]))
-    scam_id_reduced = scam_id_mapping.reduceByKey(
-        operator.add).sortBy(lambda a: -a[1])
-
     bucket = boto3.resource(
         "s3",
         endpoint_url="http://" + s3_endpoint_url,
@@ -112,12 +107,5 @@ if __name__ == "__main__":
         "/ether_category_time.txt"
     )
     obj.put(Body=json.dumps(category_reduced.collect()))
-
-    obj = bucket.Object(
-        s3_bucket, "ethereum_scam_analysis_" +
-        date_time +
-        "/popular_scams.txt"
-    )
-    obj.put(Body=json.dumps(scam_id_reduced.collect()))
 
     spark.stop()

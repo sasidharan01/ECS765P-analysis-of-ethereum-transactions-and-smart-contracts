@@ -64,28 +64,48 @@ The below is the list of popular scams. The most popular scam is found to be Sca
 |      1200 | Phishing | 1.63058e+21 |     10 |
 
 
+
 The below plot shows how ether received has changed over time.
 
 ![alt](https://github.com/sasidharan01/ECS765P-analysis-of-ethereum-transactions-and-smart-contracts/blob/master/PartD/scam_analysis/popular_scams/output/ether_time.png)
 
-**Inference:**
-Overall,  plot suggests that phishing and scamming scams are more prevalent. The value of phishing and scamming scams has been increasing over time, with phishing showing a steep increase in mid-2017 and again in mid-2018. The value of fake ICO scams is volatile, with large fluctuations between mid-2017 and early 2018.
+
+**Active Scams:**
 
 The below plot show how ether receive has changed over time for Active scams.
 
 ![alt](https://github.com/sasidharan01/ECS765P-analysis-of-ethereum-transactions-and-smart-contracts/blob/master/PartD/scam_analysis/popular_scams/output/active_scam.png)
 
+**Inactive Scams**
+
 The below plot show how ether receive has changed over time for Inactive scams.
 
 ![alt](https://github.com/sasidharan01/ECS765P-analysis-of-ethereum-transactions-and-smart-contracts/blob/master/PartD/scam_analysis/popular_scams/output/inactive_scam.png)
+
+
+**Offline Scams**
 
 The below plot show how ether receive has changed over time for Offline scams.
 
 ![alt](https://github.com/sasidharan01/ECS765P-analysis-of-ethereum-transactions-and-smart-contracts/blob/master/PartD/scam_analysis/popular_scams/output/offline_scam.png)
 
+**Suspended Scams**
+
 The below plot show how ether receive has changed over time for Suspended scams.
 
 ![alt](https://github.com/sasidharan01/ECS765P-analysis-of-ethereum-transactions-and-smart-contracts/blob/master/PartD/scam_analysis/popular_scams/output/suspended_scam.png)
+
+**Inference:**
+
+For Active scams, the highest value for scamming was recorded in September 2018, while the highest value for phishing was observed in July 2017. Both scamming and phishing are fluctuating over the months. The lowest value for scamming was recorded in November 2017, and the lowest value for phishing was observed in July 2018.
+
+For Inactive scams, only the Phishing scam type exist and it steadily decreases from Feb 2018 to April 2018.
+
+For Offline scams, phishing, scamming, and fake ICOs occurred between May 2017 and January 2019 but were taken offline. Phishing and scamming were more prevalent than fake ICOs during this period.
+
+For Suspended scams, scamming is more prevalent than phishing activities.
+
+Overall,  plot suggests that phishing and scamming scams are more prevalent. The value of phishing and scamming scams has been increasing over time, with phishing showing a steep increase in mid-2017 and again in mid-2018. The value of fake ICO scams is volatile, with large fluctuations between mid-2017 and early 2018.
 
 
 ## 4.2 Miscellaneous Analysis

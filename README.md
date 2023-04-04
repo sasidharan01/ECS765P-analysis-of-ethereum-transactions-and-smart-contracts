@@ -13,7 +13,7 @@ To create a bar plot showing the number of transactions occurring every month be
 
 The data used in this analysis was fetched from the following CSV files stored in S3 bucket. The highligted fields in the data schema is used in the source code to obtain the results.
 
-***transactions.csv:*** [hash, nonce, block_hash, block_number, transaction_index, from_address, to_address, **value**, gas, gas_price, input, **block_timestamp**, max_fee_per_gas, max_priority_fee_per_gas, transaction_type]
+- ***transactions.csv:*** [hash, nonce, block_hash, block_number, transaction_index, from_address, to_address, **value**, gas, gas_price, input, **block_timestamp**, max_fee_per_gas, max_priority_fee_per_gas, transaction_type]
 
 #### Source Code:
 ```sh

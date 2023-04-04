@@ -8,8 +8,10 @@ from datetime import datetime
 
 if __name__ == "__main__":
 
+    # Initialize Spark session
     spark = SparkSession.builder.appName("Ethereum").getOrCreate()
 
+    # Check the format of transactions dataset
     def verify_transactions(line):
         try:
             fields = line.split(",")
@@ -21,6 +23,7 @@ if __name__ == "__main__":
         except:
             return False
 
+    # Check the format of scams dataset
     def verify_scams(line):
         try:
             fields = line.split(",")
@@ -31,6 +34,7 @@ if __name__ == "__main__":
         except:
             return False
 
+    # Fetch S3 environment variables
     s3_data_repository_bucket = os.environ["DATA_REPOSITORY_BUCKET"]
     s3_endpoint_url = os.environ["S3_ENDPOINT_URL"] + \
         ":" + os.environ["BUCKET_PORT"]
@@ -38,6 +42,7 @@ if __name__ == "__main__":
     s3_secret_access_key = os.environ["AWS_SECRET_ACCESS_KEY"]
     s3_bucket = os.environ["BUCKET_NAME"]
 
+    # Configure Hadoop settings for the Spark session
     hadoopConf = spark.sparkContext._jsc.hadoopConfiguration()
     hadoopConf.set("fs.s3a.endpoint", s3_endpoint_url)
     hadoopConf.set("fs.s3a.access.key", s3_access_key_id)
@@ -45,24 +50,33 @@ if __name__ == "__main__":
     hadoopConf.set("fs.s3a.path.style.access", "true")
     hadoopConf.set("fs.s3a.connection.ssl.enabled", "false")
 
+    # Fetch scams.csv file from S3 bucket
     scams = spark.sparkContext.textFile(
         "s3a://"
         + s3_data_repository_bucket
         + "/ECS765/ethereum-parvulus/scams.csv"
     )
+
+    # Fetch transactions.csv file from S3 bucket
     transactions = spark.sparkContext.textFile(
         "s3a://"
         + s3_data_repository_bucket
         + "/ECS765/ethereum-parvulus/transactions.csv"
     )
 
+    # Filter scams dataset to remove malformed records
     scams_filtered = scams.filter(verify_scams)
+
+    # Filter scams dataset to remove malformed records
     scams_transformed = scams_filtered.map(
         lambda x: (x.split(",")[6], (x.split(",")[0],
                    x.split(",")[4], x.split(",")[7]))
     )
 
+    # Filter transactions to remove malformed records
     transactions_filtered = transactions.filter(verify_transactions)
+    
+    # Transform scams dataset into key-value pairs
     transactions_transformed = transactions_filtered.map(
         lambda x: (
             x.split(",")[6],
@@ -72,15 +86,29 @@ if __name__ == "__main__":
             ),
         )
     )
-    transactions_scams_transformed = transactions_transformed.join(
+
+    # Join transactions and scams datasets required to perform necessary transformations
+    transactions_scams_joined = transactions_transformed.join(
         scams_transformed)
 
-    category_status_mapping = transactions_scams_transformed.map(
+    """
+    Transform the joined dataset to map scam category, status,
+    and month to transaction values
+    """
+    category_status_mapping = transactions_scams_joined.map(
         lambda x: ((x[1][1][1], x[1][1][2], x[1][0][0]), x[1][0][1])
     )
+    """
+    Calculate the total transaction value for each scam category, 
+    status, and month
+    """
     category_status_reduced = category_status_mapping.reduceByKey(operator.add)
 
-    category_mapping = transactions_scams_transformed.map(
+    """
+    Create a new RDD that maps the category and month to the sum of all 
+    transaction values that occurred during that month for that category.
+    """
+    category_mapping = transactions_scams_joined.map(
         lambda x: ((x[1][1][1], x[1][0][0]), x[1][0][1]))
     category_reduced = category_mapping.reduceByKey(operator.add)
 

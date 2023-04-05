@@ -1,5 +1,6 @@
 
 
+
 # Analysis of Ethereum Transactions and Smart Contracts
 
 **Module:** ECS765P - Big Data Processing - 2022/23
@@ -32,7 +33,7 @@
 
 ## Part A. Time Analysis (25%)
 
-### 1.1 Total Transactions
+### 1.1. Total Transactions
 
 #### Objective:
 To create a bar plot showing the number of transactions occurring every month between the start and end of the dataset.
@@ -82,9 +83,9 @@ PartA
 #### Output:
 The bar plot showing the total number of transactions occurring each month between the start and end of the dataset is obtained. The code used to obtain this graph can be found in [`PartA/transactions_total.ipynb`](https://github.com/sasidharan01/ECS765P-analysis-of-ethereum-transactions-and-smart-contracts/blob/master/PartA/transactions_total.ipynb)
 
-![alt txt](https://github.com/sasidharan01/ECS765P-analysis-of-ethereum-transactions-and-smart-contracts/blob/master/PartA/output/transactions_total.png)
+![alt txt](https://github.com/sasidharan01/ECS765P-analysis-of-ethereum-transactions-and-smart-contracts/blob/master/PartA/output/transactions_total.png?raw=true)
 
-### 1.2 Average Transactions
+### 1.2. Average Transactions
 
 #### Objective:
 To create a bar plot showing the average value of transaction in each month between the start and end of the dataset.
@@ -137,7 +138,7 @@ PartA
 #### Output:
 The bar plot showing the average value of transaction in each month between the start and end of the dataset is obtained. The code used to obtain this graph can be found in [`PartA/transactions_avg.ipynb`](https://github.com/sasidharan01/ECS765P-analysis-of-ethereum-transactions-and-smart-contracts/blob/master/PartA/transactions_avg.ipynb)
 
-![alt txt](https://github.com/sasidharan01/ECS765P-analysis-of-ethereum-transactions-and-smart-contracts/blob/master/PartA/output/transactions_avg.png)
+![alt txt](https://github.com/sasidharan01/ECS765P-analysis-of-ethereum-transactions-and-smart-contracts/blob/master/PartA/output/transactions_avg.png?raw=true)
 
 ## Part B. Top Ten Most Popular Services (25%)
 
@@ -197,19 +198,7 @@ PartB
 
 The following are the top 10 smart contracts by total Ether received.
 
-| Address                                    |                      Value |   Rank |
-|--------------------------------------------|----------------------------|--------|
-| 0xaa1a6e3e6ef20068f7f8d8c835d2d22fd5116444 | 84155363699941767867374641 |      1 |
-| 0x7727e5113d1d161373623e5f49fd568b4f543a9e | 45627128512915344587749920 |      2 |
-| 0x209c4784ab1e8183cf58ca33cb740efbf3fc18ef | 42552989136413198919298969 |      3 |
-| 0xbfc39b6f805a9e40e77291aff27aee3c96915bdd | 21104195138093660050000000 |      4 |
-| 0xe94b04a0fed112f3664e45adb2b8915693dd5ff3 | 15543077635263742254719409 |      5 |
-| 0xabbb6bebfa05aa13e908eaa492bd7a8343760477 | 10719485945628946136524680 |      6 |
-| 0x341e790174e3a4d35b65fdc067b6b5634a61caea |  8379000751917755624057500 |      7 |
-| 0x58ae42a38d6b33a1e31492b60465fa80da595755 |  2902709187105736532863818 |      8 |
-| 0xc7c7f6660102e9a1fee1390df5c76ea5a5572ed3 |  1238086114520042000000000 |      9 |
-| 0xe28e72fcf78647adce1f1252f240bbfaebd63bcc |  1172426432515823142714582 |     10 |
-
+![alt](https://github.com/sasidharan01/ECS765P-analysis-of-ethereum-transactions-and-smart-contracts/blob/master/PartB/output/top_contracts.png?raw=true)
 
 
 
@@ -268,7 +257,7 @@ The following are the top 10 by block size.
 
 ## 4.1. Scam Analysis
 
-### 4.1.1 Popular Scams (20%)
+### 4.1.1. Popular Scams (20%)
 
 #### Objective:
 To analyze the provided scam dataset and determine the most lucrative form of scam. Investigate how this changes over time (generate graph) and examine any correlation with known scams going offline or becoming inactive. To provide the ID of the most lucrative scam and a graph illustrating the changes in ether received over time for the dataset.
@@ -305,6 +294,19 @@ PartD/scam_analysis/popular_scams
 ├── scams_category.ipynb
 └── scams_category_status.ipynb
 ```
+#### Execution:
+1. Execute the spark application.
+
+    ```sh
+    ccc create spark popular-scams.py -d -s
+    ccc create spark scam-category-status-time.py -d -s
+    ```
+2. Stream the logs of the drive container.
+
+    ```sh
+    oc logs -f spark popular-scams-spark-app-driver
+    oc logs -f scam-category-status-time-spark-app-driver
+    ```
 #### Methodology:
 
 
@@ -351,33 +353,33 @@ The below is the list of popular scams. The most popular scam is found to be Sca
 
 The below plot shows how ether received has changed over time.
 
-![alt](https://github.com/sasidharan01/ECS765P-analysis-of-ethereum-transactions-and-smart-contracts/blob/master/PartD/scam_analysis/popular_scams/output/ether_time.png)
+![alt](https://github.com/sasidharan01/ECS765P-analysis-of-ethereum-transactions-and-smart-contracts/blob/master/PartD/scam_analysis/popular_scams/output/ether_time.png?raw=true)
 
 
 **Active Scams:**
 
 The below plot show how ether receive has changed over time for Active scams.
 
-![alt](https://github.com/sasidharan01/ECS765P-analysis-of-ethereum-transactions-and-smart-contracts/blob/master/PartD/scam_analysis/popular_scams/output/active_scam.png)
+![alt](https://github.com/sasidharan01/ECS765P-analysis-of-ethereum-transactions-and-smart-contracts/blob/master/PartD/scam_analysis/popular_scams/output/active_scam.png?raw=true)
 
 **Inactive Scams**
 
 The below plot show how ether receive has changed over time for Inactive scams.
 
-![alt](https://github.com/sasidharan01/ECS765P-analysis-of-ethereum-transactions-and-smart-contracts/blob/master/PartD/scam_analysis/popular_scams/output/inactive_scam.png)
+![alt](https://github.com/sasidharan01/ECS765P-analysis-of-ethereum-transactions-and-smart-contracts/blob/master/PartD/scam_analysis/popular_scams/output/inactive_scam.png?raw=true)
 
 
 **Offline Scams**
 
 The below plot show how ether receive has changed over time for Offline scams.
 
-![alt](https://github.com/sasidharan01/ECS765P-analysis-of-ethereum-transactions-and-smart-contracts/blob/master/PartD/scam_analysis/popular_scams/output/offline_scam.png)
+![alt](https://github.com/sasidharan01/ECS765P-analysis-of-ethereum-transactions-and-smart-contracts/blob/master/PartD/scam_analysis/popular_scams/output/offline_scam.png?raw=true)
 
 **Suspended Scams**
 
 The below plot show how ether receive has changed over time for Suspended scams.
 
-![alt](https://github.com/sasidharan01/ECS765P-analysis-of-ethereum-transactions-and-smart-contracts/blob/master/PartD/scam_analysis/popular_scams/output/suspended_scam.png)
+![alt](https://github.com/sasidharan01/ECS765P-analysis-of-ethereum-transactions-and-smart-contracts/blob/master/PartD/scam_analysis/popular_scams/output/suspended_scam.png?raw=true)
 
 **Inference:**
 
@@ -392,9 +394,9 @@ For Suspended scams, scamming is more prevalent than phishing activities.
 Overall,  plot suggests that phishing and scamming scams are more prevalent. The value of phishing and scamming scams has been increasing over time, with phishing showing a steep increase in mid-2017 and again in mid-2018. The value of fake ICO scams is volatile, with large fluctuations between mid-2017 and early 2018.
 
 
-## 4.2 Miscellaneous Analysis
+## 4.2. Miscellaneous Analysis
 
-### 4.2.1 Data Overhead (20%)
+### 4.2.1. Data Overhead (20%)
 
 #### Objective:
 
@@ -412,7 +414,7 @@ PartD/miscellaneous_analysis/data_overhead/
 └── output
     └── data_ovehead.txt
 ```
-#### Execution Command:
+#### Execution:
 1. Execute the spark application.
 
 	```sh
@@ -441,15 +443,17 @@ PartD/miscellaneous_analysis/data_overhead/
 
 The size of the unwanted columns (logs_bloom, sha3_uncles, transactions_root, state_root, and receipts_root) is calculated and found to be `21504003276`. Therefore, we would be above to save `21504003276` bits of data when the above mentioned columns are removed.
 
-### 4.2.2 Gas Guzzlers (20%)
+### 4.2.2. Gas Guzzlers (20%)
 
 #### Objective:
 To analyze the changes in gas price and gas used for contract transactions on Ethereum over time and determine if there is a correlation with the results seen in Part B. Create a graph showing the change in gas price over time, a graph showing the change in gas used for contract transactions over time, and identify if the most popular contracts use more or less than the average gas used.
 
 #### Data Source:
-The data used in this analysis was fetched from a CSV file stored in an S3 bucket:
+The data used in this analysis was fetched from two CSV files stored in an S3 bucket. The highligted fields in the data schema is used in the source code to obtain the results.
 
-***transactions.csv:*** The transactions file contains information about Ethereum transactions.
+transactions.csv: [hash, nonce, block_hash, block_number, transaction_index, from_address, to_address, value, gas, gas_price, input, block_timestamp, max_fee_per_gas, max_priority_fee_per_gas, transaction_type]
+
+contracts.csv: [address, bytecode, function_sighashes, is_erc20, is_erc721, block_number]
 
 #### Source Code:
 ```sh
@@ -465,7 +469,17 @@ PartD/miscellaneous_analysis/gas_guzzlers
     ├── gas_used_avg.png
     └── gas_used_avg.txt
 ```
+#### Execution:
+1. Execute the spark application.
 
+    ```sh
+    ccc create spark gas-guzzlers.py -d -s
+    ```
+2. Stream the logs of the drive container.
+
+    ```sh
+    oc logs -f spark gas-guzzlers-spark-app-driver
+    ```
 #### Methodology:
 
 1.  ***Initialize Spark session and S3 environment variables:*** Initialized a Spark session using the SparkSession object. Fetched environment variables related to the S3 bucket, such as the data repository bucket, endpoint URL, access key ID, secret access key, and bucket name. Configured Hadoop settings for the Spark session using the hadoopConf object.
@@ -482,8 +496,8 @@ PartD/miscellaneous_analysis/gas_guzzlers
 
 The below plot shows the Average gas price with respect to Month/Year (sorted first on month and then year).
 
-![alt](https://github.com/sasidharan01/ECS765P-analysis-of-ethereum-transactions-and-smart-contracts/blob/master/PartD/miscellaneous_analysis/gas_guzzlers/output/gas_price_avg.png)
+![alt](https://github.com/sasidharan01/ECS765P-analysis-of-ethereum-transactions-and-smart-contracts/blob/master/PartD/miscellaneous_analysis/gas_guzzlers/output/gas_price_avg.png?raw=true)
 
 The below plot shows the Average gas used with respect to Month/Year (sorted first on month and then year).
 
-![alt](https://github.com/sasidharan01/ECS765P-analysis-of-ethereum-transactions-and-smart-contracts/blob/master/PartD/miscellaneous_analysis/gas_guzzlers/output/gas_used_avg.png)
+![alt](https://github.com/sasidharan01/ECS765P-analysis-of-ethereum-transactions-and-smart-contracts/blob/master/PartD/miscellaneous_analysis/gas_guzzlers/output/gas_used_avg.png?raw=true)

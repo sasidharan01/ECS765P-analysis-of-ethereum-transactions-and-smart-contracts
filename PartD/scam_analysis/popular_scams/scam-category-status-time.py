@@ -90,7 +90,11 @@ if __name__ == "__main__":
     # Join transactions and scams datasets required to perform necessary transformations
     transactions_scams_joined = transactions_transformed.join(
         scams_transformed)
-
+    
+    category_wise_mapped = transactions_scams_joined.map(lambda l: (l[1][1][1], l[1][0][1]))
+    
+    category_wise_reduced = category_wise_mapped.reduceByKey(operator.add).sortBy(lambda a: -a[1])
+    
     """
     Transform the joined dataset to map scam category, status,
     and month to transaction values
@@ -123,6 +127,13 @@ if __name__ == "__main__":
     now = datetime.now()
     date_time = now.strftime("%d-%m-%Y_%H:%M:%S")
 
+    obj = bucket.Object(
+        s3_bucket, "ethereum_scam_analysis_" + 
+        date_time +
+        "/category_ether.txt"
+    )
+    obj.put(Body=json.dumps(category_wise_reduced.collect()))
+    
     obj = bucket.Object(
         s3_bucket, "ethereum_scam_analysis_" +
         date_time + "/ether_category_status_time.txt"

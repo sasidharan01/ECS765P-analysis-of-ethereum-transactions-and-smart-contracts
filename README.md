@@ -1,7 +1,34 @@
 
+
 # Analysis of Ethereum Transactions and Smart Contracts
 
 **Module:** ECS765P - Big Data Processing - 2022/23
+
+## Table of Contents
+
+
+
+1. [Part A. Time Analysis](#part-a-time-analysis-25)
+
+    1.1. [Total Transactions](#11-total-transactions)
+    
+    1.2. [Average Transactions](#12-average-transactions)
+    
+2. [Part B. Top Ten Most Popular Services](#part-b-top-ten-most-popular-services-25)
+
+3. [Part C. Top Ten Most Active Miners](#part-c-top-ten-most-active-miners-10)
+
+4. [Part D. Data exploration](#part-d-data-exploration-40)
+
+    4.1. [Scam Analysis](#41-scam-analysis)
+    
+    &nbsp;&nbsp;&nbsp;&nbsp;4.1.1. [Popular Scams](#411-popular-scams-20)
+	
+    4.2. [Miscellaneous Analysis](#42-miscellaneous-analysis)
+    
+    &nbsp;&nbsp;&nbsp;&nbsp;4.2.1. [Data Overhead](#421-data-overhead-20)
+	
+    &nbsp;&nbsp;&nbsp;&nbsp;4.2.2. [Gas Guzzlers](#422-gas-guzzlers-20)
 
 ## Part A. Time Analysis (25%)
 

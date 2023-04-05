@@ -1,6 +1,3 @@
-
-
-
 # Analysis of Ethereum Transactions and Smart Contracts
 
 **Module:** ECS765P - Big Data Processing - 2022/23
@@ -252,10 +249,10 @@ The following are the top 10 by block size.
 To analyze the provided scam dataset and determine the most lucrative form of scam. Investigate how this changes over time (generate graph) and examine any correlation with known scams going offline or becoming inactive. To provide the ID of the most lucrative scam and a graph illustrating the changes in ether received over time for the dataset.
 
 #### Data Source:
-The data used in this analysis was fetched from the following CSV files stored in an S3 bucket:
+The data used in this analysis was fetched from the following CSV files stored in an S3 bucket. The highligted fields in the data schema is used in the source code to obtain the results.
 
-***transactions.csv:*** [hash, nonce, block_hash, block_number, transaction_index, from_address, to_address, value, gas]
-***scams.csv:*** [id, name, url, coin, category, subcategory, description, addresses, reporter, ip, status]
+- ***transactions.csv:*** [hash, nonce, block_hash, block_number, transaction_index, from_address, **to_address**, **value**, gas,  gas_price, input, block_timestamp, max_fee_per_gas, max_priority_fee_per_gas, transaction_type]
+- ***scams.csv:*** [**id**, name, url, coin, **category**, subcategory, description, **addresses**, reporter, ip, **status**]
 
 #### Source Code:
 
@@ -301,9 +298,9 @@ PartD/scam_analysis/popular_scams
 
 1.  ***Initialize Spark session and S3 environment variables:*** Initialize a Spark session using the SparkSession object. Fetch environment variables related to the S3 bucket, such as the data repository bucket, endpoint URL, access key ID, secret access key, and bucket name. Configure Hadoop settings for the Spark session using the hadoopConf object.
 
-2. ***Verify transactions and contracts data:*** The methods verify_transactions() and verify_contracts() reads every line of transactions and contracts data respectively as input and return True if the data is in the correct format and False otherwise.
+2. ***Verify transactions and scams data:*** The methods verify_transactions() and verify_contracts() reads every line of transactions and contracts data respectively as input and return True if the data is in the correct format and False otherwise.
 
-3.  ***Fetch transactions.csv and contracts.csv files from S3 bucket:***  The transactions.csv and contracts.csv files are fetched from the S3 bucket using the textFile() method of the Spark context.
+3.  ***Fetch transactions.csv and scams.csv files from S3 bucket:***  The transactions.csv and scams.csv files are fetched from the S3 bucket using the textFile() method of the Spark context.
 
 4.  ***Transform Scam and Transactions Dataset:*** The scams dataset is transformed into key-value pairs where the key is the scam address and the value is a tuple containing the scam type and scam address. Similarly, the transactions dataset into key-value pairs where the key is the transaction address and the value is the transaction value.
 
@@ -382,9 +379,9 @@ Overall,  plot suggests that phishing and scamming scams are more prevalent. The
 To analyze the amount of space that can be saved by removing unnecessary columns from the blocks table in a cryptocurrency database. The columns that can be considered for removal are logs_bloom, sha3_uncles, transactions_root, state_root, and receipts_root. Since these columns contain hex strings, it is assumed that each character after the first two requires four bits. The objective is to determine how much space can be saved by removing these columns.
 
 #### Data Source:
-The data used in this analysis was fetched from a CSV file stored in an S3 bucket:
+The data used in this analysis was fetched from a CSV file stored in an S3 bucket. The highligted fields in the data schema is used in the source code to obtain the results.
 
-***blocks.csv:*** [number, hash, parent_hash, nonce, sha3_uncles, logs_bloom, transactions_root, state_root, receipts_root, miner, difficulty, total_difficulty, size, extra_data, gas_limit, gas_used, timestamp, transaction_count, base_fee_per_gas,]
+- ***blocks.csv:*** [number, hash, parent_hash, nonce, **sha3_uncles**, **logs_bloom**, **transactions_root**, **state_root**, **receipts_root**, miner, difficulty, total_difficulty, size, extra_data, gas_limit, gas_used, timestamp, transaction_count, base_fee_per_gas,]
 
 #### Source Code:
 ```sh
@@ -428,9 +425,10 @@ The size of the unwanted columns (logs_bloom, sha3_uncles, transactions_root, st
 To analyze the changes in gas price and gas used for contract transactions on Ethereum over time and determine if there is a correlation with the results seen in Part B. Create a graph showing the change in gas price over time, a graph showing the change in gas used for contract transactions over time, and identify if the most popular contracts use more or less than the average gas used.
 
 #### Data Source:
-The data used in this analysis was fetched from a CSV file stored in an S3 bucket:
+The data used in this analysis was fetched from a CSV file stored in an S3 bucket. The highligted fields in the data schema is used in the source code to obtain the results.
 
-***transactions.csv:*** The transactions file contains information about Ethereum transactions.
+- ***transactions.csv:*** [hash, nonce, block_hash, block_number, transaction_index, from_address, **to_address**, value, gas, **gas_price**, input, **block_timestamp**, max_fee_per_gas, max_priority_fee_per_gas, transaction_type]
+- **_contracts.csv:_** [**address**, bytecode, function_sighashes, is_erc20, is_erc721, block_number]
 
 #### Source Code:
 ```sh

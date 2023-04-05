@@ -240,18 +240,7 @@ The data used in this code is fetched from CSV files stored in an S3 bucket. The
 
 The following are the top 10 by block size.
 
-| Address                                    |       Value |   Rank |
-|--------------------------------------------|-------------|--------|
-| 0xea674fdde714fd979de3edf0f56aa9716b898ec8 | 17453393724 |      1 |
-| 0x829bd824b016326a401d083b33d092293333a830 | 12310472526 |      2 |
-| 0x5a0b54d5dc17e0aadc383d2db43b0a0d3e029c4c |  8825710065 |      3 |
-| 0x52bc44d5378309ee2abf1539bf71de1b7d7be3b5 |  8451574409 |      4 |
-| 0xb2930b35844a230f00e51431acae96fe543a0347 |  6614130661 |      5 |
-| 0x2a65aca4d5fc5b5c859090a6c34d164135398226 |  3173096011 |      6 |
-| 0xf3b9d2c81f2b24b0fa0acaaa865b7d9ced5fc2fb |  1152847020 |      7 |
-| 0x4bb96091ee9d802ed039c4d1a5f6216f90f81b01 |  1134151226 |      8 |
-| 0x1e9939daaad6924ad004c2560e90804164900341 |  1080436358 |      9 |
-| 0x61c808d82a3ac53231750dadc13c777b59310bd9 |   692942577 |     10 |
+![alt](https://github.com/sasidharan01/ECS765P-analysis-of-ethereum-transactions-and-smart-contracts/blob/master/PartC/output/top_miners.png?raw=true)
 
 ## Part D. Data exploration (40%)
 
@@ -336,18 +325,8 @@ The below list shows the most lucrative form of scams wrt to total value. The mo
 
 The below is the list of popular scams. The most popular scam is found to be Scamming with scam id of `5622` with value of `1.67091e+22`
 
-|   Scam ID | Type     |       Value |   Rank |
-|-----------|----------|-------------|--------|
-|      5622 | Scamming | 1.67091e+22 |      1 |
-|      2135 | Phishing | 6.58397e+21 |      2 |
-|        90 | Phishing | 5.97259e+21 |      3 |
-|      2258 | Phishing | 3.46281e+21 |      4 |
-|      2137 | Phishing | 3.38991e+21 |      5 |
-|      2132 | Scamming | 2.42807e+21 |      6 |
-|        88 | Phishing | 2.06775e+21 |      7 |
-|      2358 | Scamming | 1.83518e+21 |      8 |
-|      2556 | Phishing | 1.80305e+21 |      9 |
-|      1200 | Phishing | 1.63058e+21 |     10 |
+![alt](https://github.com/sasidharan01/ECS765P-analysis-of-ethereum-transactions-and-smart-contracts/blob/master/PartD/scam_analysis/popular_scams/output/popular_scams.png?raw=true)
+
 
 
 
@@ -449,11 +428,9 @@ The size of the unwanted columns (logs_bloom, sha3_uncles, transactions_root, st
 To analyze the changes in gas price and gas used for contract transactions on Ethereum over time and determine if there is a correlation with the results seen in Part B. Create a graph showing the change in gas price over time, a graph showing the change in gas used for contract transactions over time, and identify if the most popular contracts use more or less than the average gas used.
 
 #### Data Source:
-The data used in this analysis was fetched from two CSV files stored in an S3 bucket. The highligted fields in the data schema is used in the source code to obtain the results.
+The data used in this analysis was fetched from a CSV file stored in an S3 bucket:
 
-transactions.csv: [hash, nonce, block_hash, block_number, transaction_index, from_address, to_address, value, gas, gas_price, input, block_timestamp, max_fee_per_gas, max_priority_fee_per_gas, transaction_type]
-
-contracts.csv: [address, bytecode, function_sighashes, is_erc20, is_erc721, block_number]
+***transactions.csv:*** The transactions file contains information about Ethereum transactions.
 
 #### Source Code:
 ```sh

@@ -1,5 +1,3 @@
-
-
 ## Part D. Data exploration (40%)
 ## 4.1. Scam Analysis
 
@@ -47,6 +45,14 @@ PartD/scam_analysis/popular_scams
 7. ***Store results in S3 bucket:*** The results are then written to S3 bucket as a TXT file ( `ether_category_time.txt`, `ether_category_status_time.txt` and `popular_scams.txt` ) using the boto3 library and the Spart session is stopped using stop() method.
 
 #### Output:
+
+The below list shows the most lucrative form of scams wrt to total value. The most lucrative form of scam is found to be `Phishing` with total value of  `4.32186e+22`
+| Type     |       Value |   Rank |
+|----------|-------------|--------|
+| Phishing | 4.32186e+22 |      1 |
+| Scamming | 4.1627e+22  |      2 |
+| Fake ICO | 1.35646e+21 |      3 |
+
 
 The below is the list of popular scams. The most popular scam is found to be Scamming with scam id of `5622` with value of `1.67091e+22`
 

@@ -1,7 +1,9 @@
 ## Part D. Data exploration (40%)
+
 ## 4.1. Scam Analysis
 
 ### 4.1.1 Popular Scams (20%)
+
 #### Objective:
 To analyze the provided scam dataset and determine the most lucrative form of scam. Investigate how this changes over time (generate graph) and examine any correlation with known scams going offline or becoming inactive. To provide the ID of the most lucrative scam and a graph illustrating the changes in ether received over time for the dataset.
 
@@ -15,17 +17,27 @@ The data used in this analysis was fetched from the following CSV files stored i
 
 ```sh
 PartD/scam_analysis/popular_scams
-├── convert.py
 ├── output
-│   ├── ether_time.csv
+│   ├── active_scam.png
+│   ├── category_ether.md
+│   ├── category_ether.txt
+│   ├── ether_category_status_time.txt
+│   ├── ether_category_time.txt
 │   ├── ether_time.png
-│   ├── ether_time.txt
+│   ├── inactive_scam.png
+│   ├── offline_scam.png
+│   ├── popular_active_scams.md
+│   ├── popular_inactive_scams.md
+│   ├── popular_offline_scams.md
+│   ├── popular_scams.md
 │   ├── popular_scams.txt
-│   ├── scams.csv
-│   ├── scams.json
-│   └── untitled.txt
-├── scam.py # Source code
-└── scams.ipynb # Scource code to ether time plot
+│   ├── popular_suspended_scams.md
+│   └── suspended_scam.png
+├── popular-scams.py # Source code to get popular scams
+├── scam-category-status-time.py # Source code to get category-status wise scams
+├── scam.py
+├── scams_category.ipynb
+└── scams_category_status.ipynb
 ```
 #### Methodology:
 
@@ -116,64 +128,7 @@ Overall,  plot suggests that phishing and scamming scams are more prevalent. The
 
 ## 4.2 Miscellaneous Analysis
 
-### 4.2.1 Gas Guzzlers (20%)
-
-#### Objective:
-To analyze the changes in gas price and gas used for contract transactions on Ethereum over time and determine if there is a correlation with the results seen in Part B. Create a graph showing the change in gas price over time, a graph showing the change in gas used for contract transactions over time, and identify if the most popular contracts use more or less than the average gas used.
-
-#### Data Source:
-The data used in this analysis was fetched from a CSV file stored in an S3 bucket:
-
-***transactions.csv:*** The transactions file contains information about Ethereum transactions.
-
-#### Source Code:
-```sh
-PartD/miscellaneous_analysis/gas_guzzlers
-├── README.md
-├── gas-guzzlers.py # Source code
-├── gas_price_average.ipynb # Code for generating average gas price plot
-├── gas_price_used.ipynb # Code for generating average gas used plot
-└── output
-    ├── gas_price_avg.md
-    ├── gas_price_avg.png
-    ├── gas_price_avg.txt
-    ├── gas_used_avg.md
-    ├── gas_used_avg.png
-    └── gas_used_avg.txt
-```
-
-#### Methodology:
-
-1. *Initialize spark session:* Initialize a Spark session using the SparkSession object.
-
-2. *Verify transactions and contracts data:* The methods verify_transactions() and verify_contracts() that every line of transactions and contracts data respectively as input and return True if the data is in the correct format and False otherwise.
-
-3. *Fetch S3 environment variables:* Fetch environment variables related to the S3 bucket, such as the data repository bucket, endpoint URL, access key ID, secret access key, and bucket name.
-
-4. *Configure Hadoop settings for the Spark session:* Configure Hadoop settings for the Spark session using the hadoopConf object.
-
-5. *Fetch transactions.csv and contracts.csv files from S3 bucket:* The transactions.csv and contracts.csv files are fetched from the S3 bucket using the textFile() method of the Spark context.
-
-6. *Filter transactions and contracts data based on the format:* The transactions and contracts data are filtered based on the format using the filter() method of the RDD object.
-
-7. *Extract and aggregate features for average gas price calculation:* The method map_gas_price() takes every single line of transactions data as input and returns a tuple of date and a tuple of gas price and count. This method is used to extract features from the data and aggregate values for calculating the average gas price per month. The transactions data is mapped using this function to calculate the average gas price per month.
-
-8. *Reduce transactions data by date and calculate average gas used:* Similar to the above step, the method map_gas_used() takes a every line of transactions data as input and returns a tuple of smart contract address and a tuple of date and gas used. The method is used to extract features from the data which is used for calculating the average gas used per smart contract per month. The transactions and contracts data is then mapped using this function. Then, both the data are joined based on the smart contract address. The result of the join RDD is reduced by date, and the average gas used per smart contract per month is calculated.
-
-9. *Store results in S3 bucket:* The results are then written to S3 bucket as a TXT file using the boto3 library and the Spart session is stopped using stop() method.
-
-#### Output:
-
-The below plot shows the Average gas price with respect to Month/Year (sorted first on month and then year).
-
-![alt](https://github.com/sasidharan01/ECS765P-analysis-of-ethereum-transactions-and-smart-contracts/blob/master/PartD/miscellaneous_analysis/gas_guzzlers/output/gas_price_avg.png)
-
-The below plot shows the Average gas used with respect to Month/Year (sorted first on month and then year).
-
-![alt](https://github.com/sasidharan01/ECS765P-analysis-of-ethereum-transactions-and-smart-contracts/blob/master/PartD/miscellaneous_analysis/gas_guzzlers/output/gas_used_avg.png)
-
-
-### 4.2.2 Data Overhead (20%)
+### 4.2.1 Data Overhead (20%)
 
 #### Objective:
 
@@ -187,7 +142,7 @@ The data used in this analysis was fetched from a CSV file stored in an S3 bucke
 #### Source Code:
 ```sh
 PartD/miscellaneous_analysis/data_overhead/
-├── data-overhead.py
+├── data-overhead.py # Source code 
 └── output
     └── data_ovehead.txt
 ```
@@ -212,10 +167,57 @@ PartD/miscellaneous_analysis/data_overhead/
 
 3. ***Transform and reduce blocks dataset:*** 1.  The blocks dataset is mapped to extrac the five columns that need to be analysed and the `calculate_size` method is used to calculate the size of each column using the. The resultant data is reduced `reduceByKey` by summing the sized of all the columns.
 
-4. ***Create new RDD to calculate total size: *** The above reduced dataset is mapped to calculate the total size of all columns and stored in a new RDD.
+4. ***Create new RDD to calculate total size:***  The above reduced dataset is mapped to calculate the total size of all columns and stored in a new RDD.
 
 5. ***Store results in S3 bucket:*** The results are then written to S3 bucket as a TXT file `data-overhead.txt` using the boto3 library and the Spark session is stopped using `stop()` method.
 
 #### Output:
 
-The size of the unwanted columns (logs_bloom, sha3_uncles, transactions_root, state_root, and receipts_root) is calculated and found to be `21504003276`. Therefore, we would be above to save `21504003276` bytes of data when the above mentioned columns are removed.
+The size of the unwanted columns (logs_bloom, sha3_uncles, transactions_root, state_root, and receipts_root) is calculated and found to be `21504003276`. Therefore, we would be above to save `21504003276` bits of data when the above mentioned columns are removed.
+
+### 4.2.2 Gas Guzzlers (20%)
+
+#### Objective:
+To analyze the changes in gas price and gas used for contract transactions on Ethereum over time and determine if there is a correlation with the results seen in Part B. Create a graph showing the change in gas price over time, a graph showing the change in gas used for contract transactions over time, and identify if the most popular contracts use more or less than the average gas used.
+
+#### Data Source:
+The data used in this analysis was fetched from a CSV file stored in an S3 bucket:
+
+***transactions.csv:*** The transactions file contains information about Ethereum transactions.
+
+#### Source Code:
+```sh
+PartD/miscellaneous_analysis/gas_guzzlers
+├── gas-guzzlers.py # Source code
+├── gas_price_average.ipynb # Code for generating average gas price plot
+├── gas_price_used.ipynb # Code for generating average gas used plot
+└── output
+    ├── gas_price_avg.md
+    ├── gas_price_avg.png
+    ├── gas_price_avg.txt
+    ├── gas_used_avg.md
+    ├── gas_used_avg.png
+    └── gas_used_avg.txt
+```
+
+#### Methodology:
+
+1.  ***Initialize Spark session and S3 environment variables:*** Initialized a Spark session using the SparkSession object. Fetched environment variables related to the S3 bucket, such as the data repository bucket, endpoint URL, access key ID, secret access key, and bucket name. Configured Hadoop settings for the Spark session using the hadoopConf object.
+
+2.  **_Fetch transactions.csv and contracts.csv file and verify for malformed lines:_**  The  `transactions.csv`  and  `contracts.csv`  is fetched from the S3 bucket using the  `textFile()`  method of the Spark context. The methods  `verify_transactions()`  and  `verify_contracts()`  respectively reads every line of transactions and contracts as input and return  `True`  if the data is in the correct format and  `False`  otherwise.
+
+3. ***Extract and aggregate features for average gas price calculation:*** The method map_gas_price() takes every single line of transactions data as input and returns a tuple of date and a tuple of gas price and count. This method is used to extract features from the data and aggregate values for calculating the average gas price per month. The transactions data is mapped using this function to calculate the average gas price per month.
+
+4. ***Reduce transactions data by date and calculate average gas used:*** Similar to the above step, the method map_gas_used() takes a every line of transactions data as input and returns a tuple of smart contract address and a tuple of date and gas used. The method is used to extract features from the data which is used for calculating the average gas used per smart contract per month. The transactions and contracts data is then mapped using this function. Then, both the data are joined based on the smart contract address. The result of the join RDD is reduced by date, and the average gas used per smart contract per month is calculated.
+
+5. ***Store results in S3 bucket:*** The results are then written to S3 bucket as a TXT file using the boto3 library and the Spart session is stopped using stop() method.
+
+#### Output:
+
+The below plot shows the Average gas price with respect to Month/Year (sorted first on month and then year).
+
+![alt](https://github.com/sasidharan01/ECS765P-analysis-of-ethereum-transactions-and-smart-contracts/blob/master/PartD/miscellaneous_analysis/gas_guzzlers/output/gas_price_avg.png)
+
+The below plot shows the Average gas used with respect to Month/Year (sorted first on month and then year).
+
+![alt](https://github.com/sasidharan01/ECS765P-analysis-of-ethereum-transactions-and-smart-contracts/blob/master/PartD/miscellaneous_analysis/gas_guzzlers/output/gas_used_avg.png)

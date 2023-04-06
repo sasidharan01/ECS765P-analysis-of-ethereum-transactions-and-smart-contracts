@@ -471,7 +471,7 @@ PartD/miscellaneous_analysis/gas_guzzlers
 
 4. ***Reduce transactions data by date and calculate average gas used:*** Similar to the above step, the method map_gas_used() takes a every line of transactions data as input and returns a tuple of smart contract address and a tuple of date and gas used. The method is used to extract features from the data which is used for calculating the average gas used per smart contract per month. The transactions and contracts data is then mapped using this function. Then, both the data are joined based on the smart contract address. The result of the join RDD is reduced by date, and the average gas used per smart contract per month is calculated.
 
-5. ***Store results in S3 bucket:*** The results are then written to S3 bucket as a TXT file using the boto3 library and the Spart session is stopped using stop() method.
+5. ***Store results in S3 bucket:*** The results are then written to S3 bucket as a TXT file `gas_used_avg.txt` and `gas_price_avg.txt` using the boto3 library and the Spart session is stopped using stop() method.
 
 #### Output:
 

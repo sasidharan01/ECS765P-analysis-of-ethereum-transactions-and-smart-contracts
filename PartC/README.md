@@ -1,5 +1,3 @@
-
-
 ## Part C. Top Ten Most Active Miners (10%)
 
 #### Objective:
@@ -30,24 +28,13 @@ The data used in this code is fetched from CSV files stored in an S3 bucket. The
 
 2. ***Fetch blocks.csv file and verify blocks data:***  The `blocks.csv` file is fetched from the S3 bucket and the data is filtered using `verify_blocks` method to remove malformed data.
 
-3. ***Extract block features and reduce by miner address:*** The filtered data is transformed using `get_block_features` function to extract the miner address and block size. The block data is then reduced by the miner address to calculate the total block size mined by each miner. The top 10 miners are identified using `takeOrdered` method using a lambda function that sorts the miners by the total block size mined.
+3. ***Extract block features and reduce by miner address:*** The filtered data is transformed using `get_block_features` function to extract the miner address and block size. The block data is then reduced by the miner address to calculate the total block size mined by each miner. The top 10 miners are identified using `takeOrdered()` method using a lambda function that sorts the miners by the total block size mined.
 
 4.  _**Store results in S3 bucket:**_  The results are then written to S3 bucket as a TXT file  `top_miners.txt`  using the boto3 library and the Spark session is stopped using  `stop()`  method.
 
 #### Output:
 
-The following are the top 10 by block size.
+The following are the top 10 by block size. The code used to generate this table can be found in [`PartC/top-miners.ipynb`](https://github.com/sasidharan01/ECS765P-analysis-of-ethereum-transactions-and-smart-contracts/blob/master/PartC/top_miners.ipynb)
 
-| Address                                    |       Value |   Rank |
-|--------------------------------------------|-------------|--------|
-| 0xea674fdde714fd979de3edf0f56aa9716b898ec8 | 17453393724 |      1 |
-| 0x829bd824b016326a401d083b33d092293333a830 | 12310472526 |      2 |
-| 0x5a0b54d5dc17e0aadc383d2db43b0a0d3e029c4c |  8825710065 |      3 |
-| 0x52bc44d5378309ee2abf1539bf71de1b7d7be3b5 |  8451574409 |      4 |
-| 0xb2930b35844a230f00e51431acae96fe543a0347 |  6614130661 |      5 |
-| 0x2a65aca4d5fc5b5c859090a6c34d164135398226 |  3173096011 |      6 |
-| 0xf3b9d2c81f2b24b0fa0acaaa865b7d9ced5fc2fb |  1152847020 |      7 |
-| 0x4bb96091ee9d802ed039c4d1a5f6216f90f81b01 |  1134151226 |      8 |
-| 0x1e9939daaad6924ad004c2560e90804164900341 |  1080436358 |      9 |
-| 0x61c808d82a3ac53231750dadc13c777b59310bd9 |   692942577 |     10 |
+![alt](https://github.com/sasidharan01/ECS765P-analysis-of-ethereum-transactions-and-smart-contracts/blob/master/PartC/output/top_miners.png?raw=true)
 

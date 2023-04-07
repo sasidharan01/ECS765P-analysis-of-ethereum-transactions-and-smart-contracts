@@ -138,7 +138,7 @@ PartA
 10.  ***Storing the results in an S3 bucket:*** The results are then written to S3 bucket as a TXT file `transactions_avg.txt` using the boto3 library and the Spark session is stopped using `stop()` method.
 
 #### Output:
-The bar plot showing the average value of transaction in each month (sorted first on month and then year) between the start and end of the dataset is obtained. The code used to obtain this graph can be found in [`PartA/transactions_avg.ipynb`](https://github.com/sasidharan01/ECS765P-analysis-of-ethereum-transactions-and-smart-contracts/blob/master/PartA/transactions_avg.ipynb)
+The bar plot showing the average value of transaction in each month (sorted first on month and then year) between the start and end of the dataset is obtained. The code used to obtain this graph can be found in [`PartA/transactions_average.ipynb`](https://github.com/sasidharan01/ECS765P-analysis-of-ethereum-transactions-and-smart-contracts/blob/master/PartA/transactions_average.ipynb)
 
 ![alt txt](https://github.com/sasidharan01/ECS765P-analysis-of-ethereum-transactions-and-smart-contracts/blob/master/PartA/output/transactions_avg.png?raw=true)
 

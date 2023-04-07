@@ -190,9 +190,9 @@ PartB
 
 2.  **_Fetch transactions.csv and contracts.csv file and verify the same:_** The `transactions.csv` and `contracts.csv` is fetched from the S3 bucket using the `textFile()` method of the Spark context. The methods `verify_transactions()` and `verify_contracts()` respectively reads every line of transactions and contracts as input and return `True` if the data type is correct and `False` if its invalid.
 
-3.  **_Map transactions and contracts dataset:_** The transactions dataset is then transformed using a map operation that extracts the Ethereum address and transaction value from each line. Similarly, the contracts dataset is transformed using a `map` operation that associates a value of 1 with each contract address.
+3.  **_Map transactions and contracts dataset:_** The transactions dataset is then transformed using a map operation that extracts the Ethereum address and transaction value from each line. Similarly, the contracts dataset is transformed using a `map()` operation that associates a value of 1 with each contract address.
 
-4.  **_Reduce transactions and join with contracts:_** The `reduceByKey()` operation is then used to group the transaction values by address, and the join() operation is used to join the grouped transaction values with the contracts dataset. Finally, a map operation is used to extract the address and total transaction value from the joined dataset. The `takeOrdered()` method is used to get the top 10 smart contracts based on their total transaction value.
+4.  **_Reduce transactions and join with contracts:_** The `reduceByKey()` operation is then used to group the transaction values by address, and the `join()` operation is used to join the grouped transaction values with the contracts dataset. Finally, a map operation is used to extract the address and total transaction value from the joined dataset. The `takeOrdered()` method is used to get the top 10 smart contracts based on their total transaction value.
 
 5.  **_Storing the results in an S3 bucket:_** The results are then written to S3 bucket as a TXT file `top_smart_contracts.txt` using the boto3 library and the Spark session is stopped using `stop()` method.
 
@@ -234,7 +234,7 @@ The data used in this code is fetched from CSV files stored in an S3 bucket. The
 
 2. ***Fetch blocks.csv file and verify blocks data:***  The `blocks.csv` file is fetched from the S3 bucket and the data is filtered using `verify_blocks` method to remove malformed data.
 
-3. ***Extract block features and reduce by miner address:*** The filtered data is transformed using `get_block_features` function to extract the miner address and block size. The block data is then reduced by the miner address to calculate the total block size mined by each miner. The top 10 miners are identified using `takeOrdered` method using a lambda function that sorts the miners by the total block size mined.
+3. ***Extract block features and reduce by miner address:*** The filtered data is transformed using `get_block_features` function to extract the miner address and block size. The block data is then reduced by the miner address to calculate the total block size mined by each miner. The top 10 miners are identified using `takeOrdered()` method using a lambda function that sorts the miners by the total block size mined.
 
 4.  _**Store results in S3 bucket:**_  The results are then written to S3 bucket as a TXT file  `top_miners.txt`  using the boto3 library and the Spark session is stopped using  `stop()`  method.
 
@@ -303,9 +303,9 @@ PartD/scam_analysis/popular_scams
 
 1.  ***Initialize Spark session and S3 environment variables:*** Initialize a Spark session using the SparkSession object. Fetch environment variables related to the S3 bucket, such as the data repository bucket, endpoint URL, access key ID, secret access key, and bucket name. Configure Hadoop settings for the Spark session using the hadoopConf object.
 
-2. ***Verify transactions and scams data:*** The methods verify_transactions() and verify_contracts() reads every line of transactions and contracts data respectively as input and return True if the data type is in the correct format and False if its invalid.
+2. ***Verify transactions and scams data:*** The methods `verify_transactions()` and `verify_contracts()` reads every line of transactions and contracts data respectively as input and return `True` if the data type is in the correct format and `False` if its invalid.
 
-3.  ***Fetch transactions.csv and scams.csv files from S3 bucket:***  The transactions.csv and scams.csv files are fetched from the S3 bucket using the textFile() method of the Spark context.
+3.  ***Fetch transactions.csv and scams.csv files from S3 bucket:***  The `transactions.csv` and `scams.csv` files are fetched from the S3 bucket using the `textFile()` method of the Spark context.
 
 4.  ***Transform Scam and Transactions Dataset:*** The scams dataset is transformed into key-value pairs where the key is the scam address and the value is a tuple containing the scam type and scam address. Similarly, the transactions dataset into key-value pairs where the key is the transaction address and the value is the transaction value.
 
@@ -313,7 +313,7 @@ PartD/scam_analysis/popular_scams
 
 6.  ***Create a new RDD and Map :*** The month and scam address to the sum of all transaction values occurred during that month for that scam address is mapped and the ethertime RDD is obtained to contain a tuple with a tuple containing the month and scam address as the key, and the total transaction value as the value.
 
-7. ***Store results in S3 bucket:*** The results are then written to S3 bucket as a TXT file ( `ether_category_time.txt`, `ether_category_status_time.txt` and `popular_scams.txt` ) using the boto3 library and the Spart session is stopped using stop() method.
+7. ***Store results in S3 bucket:*** The results are then written to S3 bucket as a TXT file ( `ether_category_time.txt`, `ether_category_status_time.txt` and `popular_scams.txt` ) using the `boto3` library and the Spart session is stopped using `stop()` method.
 
 #### Output:
 
@@ -373,7 +373,7 @@ For Offline scams, phishing, scamming, and fake ICOs occurred between May 2017 a
 
 For Suspended scams, scamming is more prevalent than phishing activities.
 
-Overall,  plot suggests that phishing and scamming scams are more prevalent. The value of phishing and scamming scams has been increasing over time, with phishing showing a steep increase in mid-2017 and again in mid-2018. The value of fake ICO scams is volatile, with large fluctuations between mid-2017 and early 2018.
+Overall,  plot suggests that phishing and scamming scams are more prevalent. The value of phishing and scamming scams has been increasing over time, with phishing showing a steep increase in August 2017 and scamming in Sep 2018. The value of fake ICO scams is volatile, with large fluctuations between July 2017 and June 2018.
 
 
 ## 4.2. Miscellaneous Analysis
@@ -413,9 +413,9 @@ PartD/miscellaneous_analysis/data_overhead/
 
 1.  ***Initialize Spark session and S3 environment variables:*** Initialized a Spark session using the SparkSession object. Fetched environment variables related to the S3 bucket, such as the data repository bucket, endpoint URL, access key ID, secret access key, and bucket name. Configured Hadoop settings for the Spark session using the hadoopConf object.
 
-2.  ***Fetch blocks.csv file and verify block data*** The blocks.csv is fetched from the S3 bucket using the textFile() method of the Spark context. The methods `verify_blocks()` reads every line of transactions as input and return `True` if the data type is in the correct format and `False` if its invalid.
+2.  ***Fetch blocks.csv file and verify block data*** The `blocks.csv` is fetched from the S3 bucket using the `textFile()` method of the Spark context. The methods `verify_blocks()` reads every line of transactions as input and return `True` if the data type is in the correct format and `False` if its invalid.
 
-3. ***Transform and reduce blocks dataset:*** 1.  The blocks dataset is mapped to extract the five columns that need to be analysed and the `calculate_size()` method is used to calculate the size of each column using the. The resultant data is reduced `reduceByKey()` by summing the sized of all the columns.
+3. ***Transform and reduce blocks dataset:*** The blocks dataset is mapped to extract the five columns that need to be analysed and the `calculate_size()` method is used to calculate the size of each column using the `map()`. The resultant data is reduced `reduceByKey()` by summing the sized of all the columns.
 
 4. ***Create new RDD to calculate total size:***  The above reduced dataset is mapped to calculate the total size of all columns and stored in a new RDD.
 
@@ -433,7 +433,7 @@ To analyze the changes in gas price and gas used for contract transactions on Et
 #### Data Source:
 The data used in this analysis was fetched from a CSV file stored in an S3 bucket. The highlighted fields in the data schema is used in the source code to obtain the results.
 
-- ***transactions.csv:*** [hash, nonce, block_hash, block_number, transaction_index, from_address, **to_address**, value, gas, **gas_price**, input, **block_timestamp**, max_fee_per_gas, max_priority_fee_per_gas, transaction_type]
+- ***transactions.csv:*** [hash, nonce, block_hash, block_number, transaction_index, from_address, **to_address**, value,  **gas**, **gas_price**, input, **block_timestamp**, max_fee_per_gas, max_priority_fee_per_gas, transaction_type]
 - **_contracts.csv:_** [**address**, bytecode, function_sighashes, is_erc20, is_erc721, block_number]
 
 #### Source Code:
@@ -467,11 +467,11 @@ PartD/miscellaneous_analysis/gas_guzzlers
 
 2.  **_Fetch transactions.csv and contracts.csv file and verify for malformed lines:_**  The  `transactions.csv`  and  `contracts.csv`  is fetched from the S3 bucket using the  `textFile()`  method of the Spark context. The methods  `verify_transactions()`  and  `verify_contracts()`  respectively reads every line of transactions and contracts as input and return  `True`  if the data type is in the correct format and  `False`  if its invalid.
 
-3. ***Extract and aggregate features for average gas price calculation:*** The method map_gas_price() takes every single line of transactions data as input and returns a tuple of date and a tuple of gas price and count. This method is used to extract features from the data and aggregate values for calculating the average gas price per month. The transactions data is mapped using this function to calculate the average gas price per month.
+3. ***Extract and aggregate features for average gas price calculation:*** The method `map_gas_price()` takes every single line of transactions data as input and returns a tuple of date and a tuple of gas price and count. This method is used to extract features from the data and aggregate values for calculating the average gas price per month. The transactions data is mapped using this function to calculate the average gas price per month.
 
-4. ***Reduce transactions data by date and calculate average gas used:*** Similar to the above step, the method map_gas_used() takes a every line of transactions data as input and returns a tuple of smart contract address and a tuple of date and gas used. The method is used to extract features from the data which is used for calculating the average gas used per smart contract per month. The transactions and contracts data is then mapped using this function. Then, both the data are joined based on the smart contract address. The result of the join RDD is reduced by date, and the average gas used per smart contract per month is calculated.
+4. ***Reduce transactions data by date and calculate average gas used:*** Similar to the above step, the method `map_gas_used()` takes a every line of transactions data as input and returns a tuple of smart contract address and a tuple of date and gas used. The method is used to extract features from the data which is used for calculating the average gas used per smart contract per month. The transactions and contracts data is then mapped using this function. Then, both the data are joined based on the smart contract address. The result of the join RDD is reduced by date, and the average gas used per smart contract per month is calculated.
 
-5. ***Store results in S3 bucket:*** The results are then written to S3 bucket as a TXT file `gas_used_avg.txt` and `gas_price_avg.txt` using the boto3 library and the Spart session is stopped using stop() method.
+5. ***Store results in S3 bucket:*** The results are then written to S3 bucket as a TXT file `gas_used_avg.txt` and `gas_price_avg.txt` using the `boto3` library and the Spark session is stopped using `stop()` method.
 
 #### Output:
 

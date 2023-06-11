@@ -3,9 +3,6 @@
 
 ## ECS765P - Big Data Processing - 2022/23
 
-**Name:** Sasidharan V
-
-**Student ID Number:** 220878065
 
 ## Table of Contents
 
